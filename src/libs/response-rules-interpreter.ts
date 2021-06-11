@@ -90,6 +90,9 @@ export class ResponseRulesInterpreter {
     } else {
       if (rule.modifier) {
         value = objectPathGet(this.targets[rule.target], rule.modifier);
+        if (value === undefined) {
+          value = objectPathGet(this.targets[rule.target], [rule.modifier])
+        }
       } else if (!rule.modifier && rule.target === 'body') {
         value = this.targets.bodyRaw;
       }
